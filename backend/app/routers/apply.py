@@ -10,6 +10,10 @@ class ClockIn(BaseModel):
     business_clock: str
 
 
+class ApplyDueIn(BaseModel):
+    retire_policy: str | None = None
+
+
 @router.get("/clock")
 def get_clock():
     return svc.get_clock()
@@ -26,5 +30,5 @@ def list_batches():
 
 
 @router.post("/due")
-def apply_due():
-    return svc.apply_due()
+def apply_due(body: ApplyDueIn | None = None):
+    return svc.apply_due(retire_policy=body.retire_policy if body else None)

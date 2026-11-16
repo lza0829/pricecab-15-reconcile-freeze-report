@@ -11,6 +11,7 @@
         <router-link to="/apply">生效应用</router-link>
         <router-link to="/prices">现行价签</router-link>
         <router-link to="/reconcile">销售对账</router-link>
+        <router-link to="/reports">冻结报告</router-link>
       </nav>
     </header>
     <router-view />

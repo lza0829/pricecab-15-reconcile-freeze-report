@@ -3,12 +3,19 @@ from __future__ import annotations
 from typing import Any
 
 from app.db import connect
-from app.repositories import sales as sales_repo
 from app.repositories import prices as price_repo
+from app.repositories import reports as report_repo
+from app.repositories import sales as sales_repo
+from app.repositories import settings as settings_repo
 
 
 def reconcile_sales() -> dict[str, Any]:
-    """Compare each sale's unit_price with the price book value effective at sold_at."""
+    """Volatile live preview — NOT a frozen report.
+
+    Every call re-reads the current price history, so the verdict changes as
+    soon as an apply rewrite happens. Use the frozen report endpoints when a
+    stable, reproducible conclusion is required.
+    """
     conn = connect()
     try:
         sales = sales_repo.list_sales(conn)
@@ -39,7 +46,12 @@ def reconcile_sales() -> dict[str, Any]:
                     "status": status,
                 }
             )
+        current = report_repo.current_report(conn)
         return {
+            "kind": "volatile_preview",
+            "note": "此列表每次现场重算，不是冻结报告；需要可复查结论请生成冻结报告。",
+            "business_clock": settings_repo.get(conn, "business_clock"),
+            "current_report_no": current["report_no"] if current else None,
             "sale_count": len(sales),
             "match_count": match,
             "mismatch_count": mismatch,

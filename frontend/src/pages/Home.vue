@@ -17,11 +17,11 @@ onMounted(async () => {
 <template>
   <section class="hero">
     <h1>改价单按预约时刻生效</h1>
-    <p>选商品建改价单并写明生效时刻，拨业务钟或点「应用到期」后写入现行价签，再与销售夹具对账看一致与否。</p>
+    <p>选商品建改价单并写明生效时刻，拨业务钟或点「应用到期」后写入现行价签；对账以冻结报告钉扎业务钟与价格水位，结论可复查。</p>
     <div class="chain">
       <div class="step"><strong>1 建单</strong>改价明细 + 生效时刻</div>
       <div class="step"><strong>2 拨钟 / 应用</strong>到期单写入价签</div>
-      <div class="step"><strong>3 对账</strong>销售单价 vs 当时价签</div>
+      <div class="step"><strong>3 冻结报告</strong>钉扎钟点 + 水位，结论可复查</div>
     </div>
   </section>
 
